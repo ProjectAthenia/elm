@@ -2,6 +2,10 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step.
 
+## 0.9.3
+
+Simple little one! This fixes an issue pertaining to situations were optional config variables are not set. To fix this issue simply copy over `src/index.js`
+
 ## 0.9.2
 
 Another little one! This simply fixed a bug in the index searching. To update to this version simply copy over the file `src/elm/Utilities/SearchField.elm`.

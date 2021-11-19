@@ -17,7 +17,6 @@ import Page.Article.Index as ArticleIndex
 import Page.Article.Viewer as ArticleViewer
 import Page.Blank as Blank
 import Page.ConfigError as ConfigError
-import Page.Home as Home
 import Page.Loading as Loading
 import Page.Login as Login
 import Page.NotFound as NotFound
@@ -37,7 +36,6 @@ type CurrentState
     | NotFound Session
     | ConfigError String Session
     | Loading Url Session
-    | Home Home.Model
     | Settings Settings.Model
     | Login Login.Model
     | SignUp SignUp.Model
@@ -176,9 +174,6 @@ view model =
         Settings settings ->
             viewPage (Settings.view settings) GotSettingsMsg
 
-        Home home ->
-            viewPage (Home.view home) GotHomeMsg
-
         Login login ->
             viewPage (Login.view login) GotLoginMsg
 
@@ -207,7 +202,6 @@ type Msg
     | ChangedRoute (Maybe Route)
     | ChangedUrl Url
     | ClickedLink Browser.UrlRequest
-    | GotHomeMsg Home.Msg
     | GotSettingsMsg Settings.Msg
     | GotLoginMsg Login.Msg
     | GotProfileMsg Profile.Msg
@@ -236,9 +230,6 @@ toSession page =
 
         ConfigError _ session ->
             session
-
-        Home home ->
-            Home.toSession home
 
         Settings settings ->
             Settings.toSession settings
@@ -316,10 +307,6 @@ changeRouteToAuthenticatedRoute route model session token user =
         Route.Settings ->
             Settings.init model.currentTime session model.apiUrl token
                 |> updateWith Settings GotSettingsMsg model
-
-        Route.Home ->
-            Home.init session model.apiUrl token user
-                |> updateWith Home GotHomeMsg model
 
         Route.Profile userId ->
             Profile.init session model.apiUrl token userId
@@ -468,10 +455,6 @@ update msg model =
             SignUp.update subMsg signUp
                 |> updateWith SignUp GotSignUpMsg model
 
-        ( GotHomeMsg subMsg, Home home ) ->
-            Home.update subMsg home
-                |> updateWith Home GotHomeMsg model
-
         ( GotProfileMsg subMsg, Profile username profile ) ->
             Profile.update subMsg profile
                 |> updateWith (Profile username) GotProfileMsg model
@@ -539,9 +522,6 @@ subscriptions model =
 
             Settings settings ->
                 Sub.map GotSettingsMsg (Settings.subscriptions settings)
-
-            Home home ->
-                Sub.map GotHomeMsg (Home.subscriptions home)
 
             Login login ->
                 Sub.map GotLoginMsg (Login.subscriptions login)

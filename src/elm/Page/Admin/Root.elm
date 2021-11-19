@@ -59,7 +59,7 @@ routes =
 
 routeToHref: Route -> String
 routeToHref route =
-    "/admin/" ++ (String.join "/" (routeToString route))
+    (String.join "/" (routeToString route))
 
 -- Transforms a route into a full string
 routeToString: Route -> List String

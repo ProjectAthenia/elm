@@ -33,8 +33,7 @@ type Route
 parser : Parser (Route -> a) a
 parser =
     oneOf
-        [ Parser.map Home Parser.top
-        , Parser.map Login (s "login")
+        [ Parser.map Login (s "login")
         , Parser.map Logout (s "logout")
         , Parser.map Settings (s "settings")
         , Parser.map Profile (s "profile" </> int)
@@ -42,7 +41,7 @@ parser =
         , Parser.map Articles (s "articles")
         , Parser.map Article (s "articles" </> int)
         , Parser.map EditArticle (s "editor" </> int)
-        , Parser.map Admin (s "admin" </> Admin.routes)
+        , Parser.map Admin Admin.routes
         ]
 
 
@@ -105,6 +104,6 @@ routeToString page =
                     [ "editor", String.fromInt articleId ]
 
                 Admin subRoute ->
-                    List.append ["admin"] (Admin.routeToString subRoute)
+                    Admin.routeToString subRoute
     in
     "/" ++ String.join "/" pieces

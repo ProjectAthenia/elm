@@ -234,7 +234,7 @@ view model =
                         [ Button.primary
                         , Button.attrs
                             [ class "create_btn"
-                            , href ("/admin/" ++ model.sharedConfiguration.pageUrl ++ "/create")
+                            , href (model.sharedConfiguration.pageUrl ++ "/create")
                             ]
                         ]
                         [ text ("Add " ++ model.sharedConfiguration.resourceName) ]

@@ -2,6 +2,18 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step.
 
+## 0.10.0
+
+Big change! This update completely removes the home page in favor of making the admin index the home page again.
+
+* src/elm/Components/CRUD/ModelForm.elm - URL references updated
+* src/elm/Components/CRUD/ModelList.elm - URL references updated
+* src/elm/Main.elm - Removed home page references
+* src/elm/Page/Admin/Root.elm - URL references updated
+* src/elm/Page/Home.elm - Removed
+* src/elm/Route.elm - Removed home page references
+* src/elm/Utilities/ModelHelpers.elm - Added a new decoder
+
 ## 0.9.3
 
 Simple little one! This fixes an issue pertaining to situations were optional config variables are not set. To fix this issue simply copy over `src/index.js`

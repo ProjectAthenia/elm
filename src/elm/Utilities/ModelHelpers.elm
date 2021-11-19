@@ -73,3 +73,8 @@ floatDecoder =
         [ JsonDecode.float
         , stringFloatDecoder
         ]
+
+
+tinyIntDecoder: Decoder Bool
+tinyIntDecoder =
+    JsonDecode.andThen (\value -> JsonDecode.succeed <| value > 0) JsonDecode.int

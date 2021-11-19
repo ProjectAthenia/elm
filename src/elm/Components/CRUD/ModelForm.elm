@@ -216,7 +216,7 @@ update token msg model =
                     , Cmd.batch
                         [ toastCmd
                         , Cmd.map ChildMsg childMsg
-                        , Navigation.pushUrl model.navigationKey ("/admin/" ++ model.sharedConfiguration.pageUrl ++  "/" ++ (String.fromInt id))
+                        , Navigation.pushUrl model.navigationKey (model.sharedConfiguration.pageUrl ++  "/" ++ (String.fromInt id))
                         ]
                     )
 

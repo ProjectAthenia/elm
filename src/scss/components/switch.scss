@@ -1,0 +1,57 @@
+/*
+ * The switch - the box around the slider
+ * From W3 schools
+ */
+.switch {
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  input {
+    display:none;
+  }
+
+  .slider {
+    position: relative;
+    cursor: pointer;
+    width: 60px;
+    height: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 50%;
+    }
+  }
+
+  input:checked + .slider {
+    background-color: #51c65b;
+  }
+  input:focus + .slider {
+    box-shadow: 0 0 1px #51c65b;
+  }
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  .switch_label {
+    margin: 0 0 0 1rem;
+  }
+}
+

@@ -234,7 +234,7 @@ update token msg model =
             let
                 (updatedModel, toastCmd) =
                     Toast.appendToast
-                        (Toast.createToast Toast.Success RemoveToast "Created Successfully")
+                        (Toast.createToast Toast.Success RemoveToast "Updated Successfully")
                         model
 
                 (childModel, childMsg) =

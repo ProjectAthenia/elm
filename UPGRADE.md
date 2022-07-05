@@ -2,6 +2,10 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step.
 
+## 0.10.1
+
+Small little wording change, "src/elm/Components/CRUD/ModelForm.elm" update success message changed.
+
 ## 0.10.0
 
 Big change! This update completely removes the home page in favor of making the admin index the home page again.

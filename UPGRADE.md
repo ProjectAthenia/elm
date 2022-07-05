@@ -2,13 +2,17 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step.
 
+## 0.11.1
+
+Bug fix for remaining admin route reference in `src/elm/Components/CRUD/ModelList.elm`.
+
 ## 0.11.0
 
 Another minor one. This one adds a new boolean decoder to `src/elm/Utilities/ModelHelpers.elm`
 
 ## 0.10.1
 
-Small little wording change, "src/elm/Components/CRUD/ModelForm.elm" update success message changed.
+Small little wording change, `src/elm/Components/CRUD/ModelForm.elm` update success message changed.
 
 ## 0.10.0
 

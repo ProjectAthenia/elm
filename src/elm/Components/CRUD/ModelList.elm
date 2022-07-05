@@ -321,7 +321,7 @@ buildRowCells dataModel id model =
                     [ Button.linkButton
                         [ Button.info
                         , Button.attrs
-                            [ href <| "/admin/" ++ model.sharedConfiguration.pageUrl ++ "/" ++ (String.fromInt id)
+                            [ href <| model.sharedConfiguration.pageUrl ++ "/" ++ (String.fromInt id)
                             ]
                         ]
                         [ text "Edit" ]

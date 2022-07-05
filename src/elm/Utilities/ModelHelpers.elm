@@ -75,6 +75,14 @@ floatDecoder =
         ]
 
 
+booleanDecoder: Decoder Bool
+booleanDecoder =
+    JsonDecode.oneOf
+        [ JsonDecode.bool
+        , tinyIntDecoder
+        ]
+
+
 tinyIntDecoder: Decoder Bool
 tinyIntDecoder =
     JsonDecode.andThen (\value -> JsonDecode.succeed <| value > 0) JsonDecode.int

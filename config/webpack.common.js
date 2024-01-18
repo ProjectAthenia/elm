@@ -16,7 +16,7 @@ const isProd = TARGET_ENV === prod;
 
 // entry and output path/filename variables
 const entryPath = path.join(__dirname, 'src/index.js');
-const outputPath = path.join(__dirname, 'dist/current');
+const outputPath = path.join(__dirname, '../dist/current');
 const outputFilename = isProd ? '[name]-[hash].js' : '[name].js';
 
 module.exports = (withDebug) => {
@@ -35,7 +35,6 @@ module.exports = (withDebug) => {
             new HtmlWebpackPlugin({
                 template: "./src/index.html",
             }),
-            new MiniCssExtractPlugin(),
             new CleanWebpackPlugin(),
             new webpack.EnvironmentPlugin([
                 "API_URL",

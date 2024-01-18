@@ -1,6 +1,7 @@
 module Page.Admin.Sections.MembershipPlan exposing (..)
 
 import Api exposing (Token)
+import Browser.Navigation as Navigation
 import Components.CRUD.ModelForm.Input as Input
 import Components.CRUD.ModelForm.NumberField as NumberField
 import Components.CRUD.ModelForm.TextField as TextField
@@ -44,7 +45,7 @@ sharedConfiguration apiUrl =
     SharedConfiguration.configure apiUrl "Membership Plan" "membership-plans" (MembershipPlan.routeGroup apiUrl) MembershipPlan.modelDecoder []
 
 
-nameColumn: ModelList.Column MembershipPlan.Model
+nameColumn: ModelList.Column MembershipPlan.Model FormMsg
 nameColumn =
      ModelList.column
         "Name"
@@ -53,7 +54,7 @@ nameColumn =
         Text
 
 
-durationColumn: ModelList.Column MembershipPlan.Model
+durationColumn: ModelList.Column MembershipPlan.Model FormMsg
 durationColumn =
      ModelList.column
         "Duration"
@@ -62,7 +63,7 @@ durationColumn =
         (Select [("lifetime", "Lifetime"), ("monthly", "Monthly"), ("yearly", "Yearly")])
 
 
-currentCostColumn: ModelList.Column MembershipPlan.Model
+currentCostColumn: ModelList.Column MembershipPlan.Model FormMsg
 currentCostColumn =
      ModelList.column
         "Current Cost"
@@ -71,7 +72,7 @@ currentCostColumn =
         None
 
 
-indexColumns: List (ModelList.Column MembershipPlan.Model)
+indexColumns: List (ModelList.Column MembershipPlan.Model FormMsg)
 indexColumns =
     [ nameColumn
     , durationColumn
@@ -79,7 +80,7 @@ indexColumns =
     ]
 
 
-indexConfiguration: ModelList.Configuration MembershipPlan.Model
+indexConfiguration: ModelList.Configuration MembershipPlan.Model FormMsg
 indexConfiguration =
     ModelList.configure [] indexColumns
 
@@ -98,8 +99,8 @@ validateForm model form =
            }
 
 
-initForm: String -> Token -> (FormModel, Cmd FormMsg)
-initForm apiUrl token =
+initForm: String -> Token -> Navigation.Key -> (FormModel, Cmd FormMsg)
+initForm apiUrl token navKey =
     ( { apiUrl = apiUrl
       , name = ""
       , duration = ""

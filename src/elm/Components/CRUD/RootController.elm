@@ -17,13 +17,13 @@ type Route
 
 type State dataModel formModel formMsg
     = Inactive
-    | IndexActive (ModelList.Model dataModel)
+    | IndexActive (ModelList.Model dataModel formMsg)
     | FormActive (ModelForm.Model dataModel formModel formMsg)
 
 
 type Msg dataModel formMsg
     = FormMsg (ModelForm.Msg dataModel formMsg)
-    | IndexMsg (ModelList.Msg dataModel)
+    | IndexMsg (ModelList.Msg dataModel formMsg)
 
 
 -- The init function format that must return our form model, and any needed commands
@@ -43,7 +43,7 @@ type alias FormView formModel formMsg =
 
 type alias Configuration dataModel formModel formMsg =
     { sharedConfiguration: SharedConfiguration.Configuration dataModel
-    , indexConfiguration: ModelList.Configuration dataModel
+    , indexConfiguration: ModelList.Configuration dataModel formMsg
     , formConfiguration: ModelForm.Configuration dataModel formModel formMsg
     }
 
@@ -52,7 +52,7 @@ type alias Model dataModel formModel formMsg =
     { config: Configuration dataModel formModel formMsg
     , currentRoute: Route
     , currentState: State dataModel formModel formMsg
-    , indexModel: Maybe (ModelList.Model dataModel)
+    , indexModel: Maybe (ModelList.Model dataModel formMsg)
     }
 
 
@@ -81,7 +81,7 @@ routeToString name route =
             [ name, String.fromInt id ]
 
 
-configure: SharedConfiguration.Configuration dataModel -> ModelList.Configuration dataModel
+configure: SharedConfiguration.Configuration dataModel -> ModelList.Configuration dataModel formMsg
     -> ModelForm.Configuration dataModel formModel formMsg -> Configuration dataModel formModel formMsg
 configure sharedConfiguration indexConfiguration formConfiguration =
     { sharedConfiguration = sharedConfiguration
@@ -108,7 +108,7 @@ replaceFormModel model formModel =
     }
 
 
-replaceIndexModel: Model dataModel formModel formMsg -> ModelList.Model dataModel -> Model dataModel formModel formMsg
+replaceIndexModel: Model dataModel formModel formMsg -> ModelList.Model dataModel formMsg -> Model dataModel formModel formMsg
 replaceIndexModel model indexModel =
     { model
         | indexModel = Just indexModel

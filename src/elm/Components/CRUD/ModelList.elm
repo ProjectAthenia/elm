@@ -446,6 +446,16 @@ buildColumnCells model instance =
     Table.td [] [ instance.valueCallback model ]
 
 
+viewBooleanFieldCell: String -> String -> (GenericModel dataModel -> Bool) -> GenericModel dataModel -> Html.Html (Msg dataModel subMsg)
+viewBooleanFieldCell positive negative valueCallback dataModel =
+    p
+        [ class
+            <| "alert alert-" ++ (if (valueCallback dataModel) then "success" else "danger")
+        ]
+        [ text (if (valueCallback dataModel) then positive else negative)
+        ]
+
+
 buildCustomColumnCells : GenericModel dataModel -> CustomColumn dataModel subMsg -> Table.Cell (Msg dataModel subMsg)
 buildCustomColumnCells model instance =
     Table.td []

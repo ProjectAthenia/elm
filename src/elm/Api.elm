@@ -211,13 +211,13 @@ post url maybeToken body decoder toMsg =
         }
 
 
-delete : Endpoint.Endpoint -> Token -> Decoder a -> (Result Error a -> msg) -> Cmd msg
-delete url token decoder toMsg =
+delete : Endpoint.Endpoint -> Token -> (Result Http.Error () -> msg) -> Cmd msg
+delete url token toMsg =
     Endpoint.request
         { method = "DELETE"
         , headers = [ authHeader token ]
         , url = url
-        , expect = expectJson toMsg decoder
+        , expect = Http.expectWhatever toMsg
         , body = Http.emptyBody
         , timeout = Nothing
         }
@@ -225,9 +225,9 @@ delete url token decoder toMsg =
 
 -- All of our generic functions start here
 
-deleteModel : Endpoint -> Token -> (Result Error Status.Model -> msg) -> Cmd msg
+deleteModel : Endpoint -> Token -> (Result Http.Error () -> msg) -> Cmd msg
 deleteModel endpoint token toMsg =
-    delete endpoint token Status.decoder toMsg
+    delete endpoint token toMsg
 
 
 genericQuery : Endpoint -> Token -> Decoder pageModel -> (Result Error pageModel -> msg) -> Cmd msg

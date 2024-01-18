@@ -1,6 +1,7 @@
 module Page.Admin.Sections.User exposing (..)
 
 import Api exposing (Token)
+import Browser.Navigation as Navigation
 import Components.CRUD.ModelForm.Input as Input
 import Components.CRUD.ModelForm.TextField as TextField
 import Components.CRUD.ModelForm as ModelForm
@@ -12,6 +13,7 @@ import Components.Entity.SubscriptionHistory as SubscriptionHistory
 import Components.User.ResetPasswordButton as ResetPasswordButton
 import Html exposing (..)
 import Models.User.User as User
+import Utilities.Order as Order
 import Utilities.SearchField exposing (SearchFieldType(..))
 import Utilities.ModelHelpers exposing (..)
 
@@ -50,7 +52,7 @@ sharedConfiguration apiUrl =
     SharedConfiguration.configure apiUrl "User" "users" (User.routeGroup apiUrl) User.modelDecoder []
 
 
-firstNameColumn: ModelList.Column User.Model
+firstNameColumn: ModelList.Column User.Model FormMsg
 firstNameColumn =
      ModelList.column
         "First Name"
@@ -58,7 +60,7 @@ firstNameColumn =
         "first_name"
         Text
 
-lastNameColumn: ModelList.Column User.Model
+lastNameColumn: ModelList.Column User.Model FormMsg
 lastNameColumn =
      ModelList.column
         "Last Name"
@@ -67,7 +69,7 @@ lastNameColumn =
         Text
 
 
-emailColumn: ModelList.Column User.Model
+emailColumn: ModelList.Column User.Model FormMsg
 emailColumn =
      ModelList.column
         "Email"
@@ -76,7 +78,7 @@ emailColumn =
         Text
 
 
-indexColumns: List (ModelList.Column User.Model)
+indexColumns: List (ModelList.Column User.Model FormMsg)
 indexColumns =
     [ firstNameColumn
     , lastNameColumn
@@ -84,9 +86,11 @@ indexColumns =
     ]
 
 
-indexConfiguration: ModelList.Configuration User.Model
+indexConfiguration: ModelList.Configuration User.Model FormMsg
 indexConfiguration =
-    ModelList.configure [] indexColumns
+    ModelList.disableCreate
+        <| ModelList.addFilter "ssu_import" "0"
+        <| ModelList.configure [Order.orderDesc "created_at"] indexColumns
 
 
 validateForm: User.Model -> FormModel -> Result String User.Model
@@ -102,8 +106,8 @@ validateForm model form =
            }
 
 
-initForm: String -> Token -> (FormModel, Cmd FormMsg)
-initForm apiUrl _ =
+initForm: String -> Token -> Navigation.Key -> (FormModel, Cmd FormMsg)
+initForm apiUrl _ _ =
     ( { apiUrl = apiUrl
       , first_name = ""
       , last_name = ""
@@ -249,8 +253,8 @@ emailInput isLoading model =
 
 
 passwordInput: Bool -> FormModel -> Html FormMsg
-passwordInput isLoading model =
-    TextField.view (Input.configure True "Password (leave blank to keep current password)" "password") model.password SetPassword isLoading
+passwordInput isLoading _ =
+    TextField.view (Input.configure False "Password (leave blank to keep current password)" "password") "" SetPassword isLoading
 
 
 resetPasswordButtonView: Bool -> FormModel -> Html FormMsg

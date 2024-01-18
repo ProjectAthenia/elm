@@ -2,6 +2,16 @@
 
 To upgrade from previous version of Athenia please check each version number listed below step by step.
 
+## 0.12.0
+
+Bigger update! This version migrates to webpack version 5, and adds the ability to set default filters in the ModelList.
+
+* config/ - New webpack config created
+* .env.example - Added example environment
+* package.json - Reworked all dependencies, and scripts
+* src/elm/Components/CRUD/ModelList.elm - Added filters
+* webpack.config.js - Old webpack config removed
+
 ## 0.11.1
 
 Bug fix for remaining admin route reference in `src/elm/Components/CRUD/ModelList.elm`.

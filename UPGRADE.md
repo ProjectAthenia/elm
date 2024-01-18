@@ -9,7 +9,13 @@ Bigger update! This version migrates to webpack version 5, and adds the ability 
 * config/ - New webpack config created
 * .env.example - Added example environment
 * package.json - Reworked all dependencies, and scripts
-* src/elm/Components/CRUD/ModelList.elm - Added filters
+* src/assets/ - New directory
+* src/elm/Api.elm - Fixed delete issue
+* src/elm/Components/CRUD/ModelForm.elm - Made a bit more general
+* src/elm/Components/CRUD/ModelList.elm - Added filters and expanded functionality
+* src/elm/Components/CRUD/RootController.elm - Updated for general model form
+* src/elm/Page/Admin/Sections/MembershipPlan.elm - Updated for general model form changes
+* src/elm/Page/Admin/Sections/User.elm - Updated for general model form changes
 * webpack.config.js - Old webpack config removed
 
 ## 0.11.1
